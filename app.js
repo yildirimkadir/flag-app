@@ -4,6 +4,7 @@
 
 const fetchCountry = async (name) => {
   const url = `https://restcountries.com/v3.1/name/${name}`;
+  if (name == "Select a country") return null;
   try {
     const res = await fetch(url);
     if (!res.ok) {
@@ -44,8 +45,7 @@ const renderCountry = (country) => {
   // console.log(Object.values(currencies)[0].name);
   // console.log(Object.values(currencies)[0].symbol);
 
-  countriesDiv.innerHTML += `
-
+  countriesDiv.innerHTML = `
   <div class="card shadow-lg" style="width: 18rem;">
     <img src="${svg}" class="card-img-top" alt="...">
     <div class="card-body">
@@ -99,5 +99,11 @@ const  selectOption = (data) => {
 
 getAllCountries();
 
+const select = document.querySelector(".form-select");
+select.addEventListener('change', (event) => {
+  const result = `${event.target.value}`;
+  fetchCountry(result);
+
+});
 
 
